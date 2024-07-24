@@ -39,14 +39,42 @@ movieList.addEventListener("mouseup", (e) => {
     }
 });
 
-console.log(popularListItems.length) //0????
 
+// function titleOn() {
+//     title.classList.remove('displayNone');
+//     // title.classList.add('displayBlock');
+// }
+// function titleOff() {
+//     // title.classList.remove('displayBlock');
+//     title.classList.add('displayNone');
+// }
 
-
-/*문제 : api.js 에서 동적으로 만든 엘리먼트는 index.js에서 변수로 불러와지지않는데 왜? */
+const title = document.querySelectorAll('.moviesItem h2');
+console.log(title);
 popularListItems.forEach((img) => {
     img.addEventListener("mouseover", () => {
         img.classList.add('active');
+        // titleOn();
+    }); 
+    img.addEventListener("mouseout", () => {
+        img.classList.remove('active');
+        // titleOff();
     }); 
 });
+
+const nav = document.querySelector('.nav');
+const movieContainer = document.querySelector('.movie-container');
+const navText = document.querySelectorAll('.nav-text');
+
+nav.addEventListener("mouseover", () => {
+    nav.classList.add('focused');
+    movieContainer.classList.add('focused');
+}); 
+nav.addEventListener("mouseout", () => {
+    nav.classList.remove('focused');
+    movieContainer.classList.remove('focused');
+}); 
+
+
+
 

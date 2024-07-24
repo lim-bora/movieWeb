@@ -20,9 +20,18 @@
         <div class="wrap-container">
             <section class="nav">
                 <ul>
-                    <li class="searchIcon searchButton"><ion-icon name="search-outline"></ion-icon></li>
-                    <li class="homeIcon"><ion-icon name="home-outline"></ion-icon></li>
-                    <li class="personIcon"><ion-icon name="person-circle-outline"></ion-icon></li>
+                    <li class="searchIcon searchButton">
+                        <ion-icon name="search-outline"></ion-icon>
+                        <span class="nav-text">Search</span>
+                    </li>
+                    <li class="homeIcon">
+                        <ion-icon name="home-outline"></ion-icon>
+                        <span class="nav-text">Home</span>
+                    </li>
+                    <li class="personIcon">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                        <span class="nav-text">Person</span>
+                    </li>
                 </ul>
             </section>
             <section class="movie-container">
@@ -30,7 +39,7 @@
 
                 </div>
                 <div class="movie-list">
-                    <h2>인기순</h2>
+                    <h2>인기영화</h2>
                     <ul class="popular-list">
 
                     </ul>
@@ -38,8 +47,10 @@
             </section>
         </div>
     </div>
-</body>
 
-<script src="./script/index.js"></script>
+
+</body>
+<script defer src="./script/index.js"></script>
 <script src="./script/tmdb-api.js"></script>
+    
 </html>
