@@ -39,5 +39,14 @@ movieList.addEventListener("mouseup", (e) => {
     }
 });
 
+console.log(popularListItems.length) //0????
 
+
+
+/*문제 : api.js 에서 동적으로 만든 엘리먼트는 index.js에서 변수로 불러와지지않는데 왜? */
+popularListItems.forEach((img) => {
+    img.addEventListener("mouseover", () => {
+        img.classList.add('active');
+    }); 
+});
 
