@@ -26,6 +26,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	position: relative;
 	color: #fff;
 	background-color: black;
 	line-height: 1;

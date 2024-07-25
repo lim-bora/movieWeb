@@ -63,6 +63,33 @@ ion-icon.active{
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 1.2px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+.movie-list > h2 > span{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+.movie-list > h2 > span ion-icon{
+    width: 16px;
+    height: 16px;
+    display: none;
+}
+.movie-list > h2 > span:hover ion-icon{
+    display: block;
+    animation: allShow 0.2s forwards;
+}
+
+@keyframes allShow{
+    0%{
+        transform: translateX(-10px);
+    }
+    100%{
+        transform: translateX(2px);
+    }
 }
 .popular-list{
     display: flex;
@@ -76,12 +103,14 @@ ion-icon.active{
     height: auto;
     width: 100%;
 }
+
 .moviesItem img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
 }
+
 
 .moviesItem.active{
     animation: target 0.2s forwards;
@@ -97,11 +126,82 @@ ion-icon.active{
     }
 }
 
- .moviesItem h2{
+.popular-list li h2{
     display: none;
     transition: all 0.3s;
+    cursor: pointer;
 }
-.moviesItem:hover h2{
+/* .popular-list li:hover h2{
+    content: '';
+    width: 100%;
+    height: 200px;
+    background-color: #000;
+    display: block;
+} */
+.popular-list li:hover h2{
+    animation: movieTitle 0.2s forwards;
     display: block;
     margin: 5px 0 5px 3px;
+    /* background-color: #000; */
+    position: relative;
 }
+
+@keyframes movieTitle{
+    0%{
+        transform: translateY(-20px);
+    }
+    100%{
+        transform: translateY(-50px);
+    }
+}
+
+
+/*모달 팝업 영역*/
+.movie-modal {
+    /*팝업 배경*/
+    display: none; /*평소에는 보이지 않도록*/
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: rgba(0,0,0,0.5);
+    }
+    .movie-modal .modal_view {
+    /*팝업*/
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60%;
+        height: 90vh;
+        padding: 20px;
+        background: rgb(24, 24, 24);
+        border-radius: 20px;
+        /* margin-top: 80px; */
+        overflow-y: scroll;
+    }
+    .movie-modal .modal_view .close_btn {
+        display: block;
+        padding: 10px 20px;
+        /* background-color: rgb(116, 0, 0); */
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        transition: box-shadow 0.2s;
+    }
+    .modal-popular-list{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        gap: 10px;
+    }
+    .modal-popular-list img{
+        width: 100%;
+        object-fit: cover;
+    }
+    .modal-popular-list > li{
+        /* width: 25%; */
+    }
