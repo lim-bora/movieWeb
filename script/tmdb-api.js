@@ -27,6 +27,12 @@ const options = {
                 <h2>${e.title}</h2>
             `;
             popularList.appendChild(moviesItemCreate); //인기순ul안에 li 아이템들 추가
+            ////클릭시 alert창 띄우기
+            // const moviesItem = document.querySelector('.moviesItem');
+   
+            moviesItemCreate.addEventListener("click", () => {
+                    alert(`영화 id: ${moviesItemCreate.getAttribute('data-id')}`);
+                }); 
             
 
             const modalItemCreate = document.createElement('li');
@@ -37,16 +43,6 @@ const options = {
             `;
             modalPopularList.appendChild(modalItemCreate); //인기순ul안에 li 아이템들 추가
 
-
-
-
-            ////클릭시 alert창 띄우기
-            const moviesItem = document.querySelectorAll('.moviesItem');
-            for (let i = 0; i < moviesItem.length; i++) {
-                moviesItem[i].addEventListener("click", () => {
-                    alert(`영화 id: ${moviesItem[i].getAttribute('data-id')}`);
-                }); 
-            }
 
         });
         movieList.appendChild(popularList); //movieList안에 popularList-ul 추가

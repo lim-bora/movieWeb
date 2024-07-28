@@ -52,9 +52,11 @@ movieList.addEventListener("mouseup", (e) => {
 const title = document.querySelectorAll('.moviesItem h2');
 console.log(title);
 popularListItems.forEach((img) => {
+    console.log(img);
     img.addEventListener("mouseover", () => {
         img.classList.add('active');
         // titleOn();
+        
     }); 
     img.addEventListener("mouseout", () => {
         img.classList.remove('active');
