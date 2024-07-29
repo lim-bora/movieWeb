@@ -26,11 +26,15 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	overflow-x: hidden;
 	position: relative;
 	color: #fff;
 	background-color: black;
 	line-height: 1;
 	font-family: "Wanted Sans Variable", "Wanted Sans", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+body.scrollOff {
+	overflow: hidden;
 }
 ol, ul, li {
 	color: #fff;

@@ -22,40 +22,59 @@
                 <ul>
                     <li class="searchIcon searchButton">
                         <ion-icon name="search-outline"></ion-icon>
-                        <span class="nav-text">Search</span>
+                        <!-- <span class="nav-text">Search</span> -->
                     </li>
-                    <li class="homeIcon">
+                    <li class="homeIcon homeButton">
                         <ion-icon name="home-outline"></ion-icon>
-                        <span class="nav-text">Home</span>
+                        <!-- <span class="nav-text">Home</span> -->
                     </li>
                     <li class="personIcon">
                         <ion-icon name="person-circle-outline"></ion-icon>
-                        <span class="nav-text">Person</span>
+                        <!-- <span class="nav-text">Person</span> -->
                     </li>
                 </ul>
             </section>
             <section class="movie-container">
                 <div class="movie-banner">
-
+                    <ul>
+                        <li class="banner1 active"><img src="./imgs/mainBanner01-1.png"></li>
+                        <li class="banner2"><img src="./imgs/mainBanner01.jpg"></li>
+                        <li class="banner3"><img src="./imgs/mainBanner03.jpg"></li>
+                    </ul>
                 </div>
+                <!-- <input type="text" id="searchInput" class="searchInput" placeholder="영화를 검색하세요" onkeyup="searchOn()"> -->
                 <div class="movie-list">
                     <h2>인기영화<span class="modal_btn">모두보기<ion-icon name="chevron-forward-outline"></ion-icon></span></h2>
-                    <ul class="popular-list">
-
-                    </ul>
+                    <div class="popularSlide slide">
+                        <ul class="popular-list list"></ul>
+                    </div>
+                    <h2>곧 개봉!<span class="modal_btn">모두보기<ion-icon name="chevron-forward-outline"></ion-icon></span></h2>
+                    <div class="upcomingSlide slide">
+                        <ul class="upcoming-list list"></ul>
+                    </div>
                 </div>  
+            </section>
+            <!-- 검색 -->
+            <section class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="searchInput" placeholder="영화를 검색하세요">
+                </div>
+                <div class="search">
+                    <ul class="search-list"></ul>
+                </div>
             </section>
         </div>
 
         <!--모달 팝업-->
-        <div class="movie-modal">
-            <div class="modal_view">
-                <button type="button" class="close_btn"><ion-icon name="close-outline"></ion-icon></button>
-                <h3>인기영화</h3>
+        <div class="movie-modal"> <!--배경-->
+            <div class="modal_view"><!--팝업-->
+                <div>
+                    <button type="button" class="close_btn"><ion-icon name="close-outline"></ion-icon></button>
+                </div>
+                <h3></h3>
                 <div class="modallist-container">
-                    <ul class="modal-popular-list">
-                        
-                    </ul>
+                    <ul class="popularModal modal-list"></ul>
+                    <ul class="upcomingModal modal-list"></ul>
                 </div>
             </div>
         </div>

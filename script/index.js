@@ -1,95 +1,84 @@
-/*드래그시 슬라이드*/
+
 const movieList = document.querySelector('.movie-list'); //무비박스
 const popularList = document.querySelector('.popular-list'); //인기순ul
 const popularListItems = document.querySelectorAll('.popular-list li');
+const searchContainer = document.querySelector('.search-container');
+const searchButton = document.querySelector('.searchButton');
+const searchItems = document.querySelectorAll('.search-list li');
+const homeButton = document.querySelector('.homeButton');
 
-let startX = 0;
-let endX = 0;
+//// 배너 페이드 효과
+const banners = document.querySelectorAll('.movie-banner li');
+let currentIndex = 0;
 
-// function dragAction(i) {
-//     popularList.style.transition = "transform 2s";
-//     popularList.style.transform = `translateX(-${i * 20}%)`;
-// }
-function prevMove(i) {
-    // 이전 항목으로 이동하는 로직 구현
-    console.log("이전으로 이동", i);
+function fadeBanner() {
+    banners[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % banners.length;
+    banners[currentIndex].classList.add('active');
 }
-
-function nextMove(i) {
-    popularList.style.transition = "transform .5s";
-    popularList.style.transform = `translateX(-${i * (100 / 3)}%)`;
-}
+setInterval(fadeBanner, 3000); // 2초마다 배너 전환
 
 
-
-movieList.addEventListener("mousedown", (e) => {
-    e.preventDefault();
-    console.log("mousedown", e.pageX);
-    startX = e.pageX;
-});
-
-movieList.addEventListener("mouseup", (e) => {
-    endX = e.pageX;
-    if(startX < endX){
-        prevMove();
-        console.log('뒤')
-    }else if(startX > endX){
-        nextMove(1);
-        console.log("이동!!")
-    }
-});
-
-
-// function titleOn() {
-//     title.classList.remove('displayNone');
-//     // title.classList.add('displayBlock');
-// }
-// function titleOff() {
-//     // title.classList.remove('displayBlock');
-//     title.classList.add('displayNone');
-// }
-
-const title = document.querySelectorAll('.moviesItem h2');
-console.log(title);
-popularListItems.forEach((img) => {
-    console.log(img);
-    img.addEventListener("mouseover", () => {
-        img.classList.add('active');
-        // titleOn();
-        
-    }); 
-    img.addEventListener("mouseout", () => {
-        img.classList.remove('active');
-        // titleOff();
-    }); 
-});
-
+//// 네비 마우스올렸을때 효과
 const nav = document.querySelector('.nav');
 const movieContainer = document.querySelector('.movie-container');
-const navText = document.querySelectorAll('.nav-text');
 
 nav.addEventListener("mouseover", () => {
     nav.classList.add('focused');
     movieContainer.classList.add('focused');
+    searchContainer.classList.add('focused');
 }); 
 nav.addEventListener("mouseout", () => {
-    nav.classList.remove('focused');
     movieContainer.classList.remove('focused');
-}); 
-
-
-const movieModal = document.querySelector('.movie-modal');
-const modalOpen = document.querySelector('.modal_btn');
-const modalClose = document.querySelector('.close_btn');
-
-//열기 버튼을 눌렀을 때 모달팝업이 열림
-modalOpen.addEventListener('click',function(){
-    //display 속성을 block로 변경
-    movieModal.style.display = 'block';
+    searchContainer.classList.remove('focused');
+    nav.classList.remove('focused');
 });
+
+
+//// 모달팝업
+const movieModal = document.querySelector('.movie-modal');
+const modalOpen = document.querySelectorAll('.modal_btn');
+const modalClose = document.querySelector('.close_btn');
+const modalList = document.querySelectorAll('.modal-list');
+const modalTitle = document.querySelector('.movie-modal h3');
+
+for (let i = 0; i < modalOpen.length; i++) {
+    //열기 버튼을 눌렀을 때 모달팝업이 열림
+modalOpen[i].addEventListener('click',function(){
+
+    movieModal.style.display = 'block';
+
+    // 모든 modalList 항목을 숨김
+    modalList.forEach(modal => {
+        modal.style.display = 'none';
+    });
+    modalList[i].style.display = 'grid';
+
+    modalTitle.textContent = (i === 0) ? '인기영화' : '곧 개봉!';
+    //리스트가 두개일경우 가능한방법, 리스트가 많은 경우 스위치 써도좋을듯
+});
+}
+
+
+
 //닫기 버튼을 눌렀을 때 모달팝업이 닫힘
 modalClose.addEventListener('click',function(){
-   //display 속성을 none으로 변경
-   movieModal.style.display = 'none';
+    movieModal.style.display = 'none';
 });
 
+searchButton.addEventListener('click', () => {    
+    searchContainer.classList.toggle('visible');
+});
+
+homeButton.addEventListener('click', () => {    
+    searchContainer.classList.remove('visible');
+});
+
+
+const banersSection = document.querySelector('.movie-banner') ;
+setTimeout(() => {        
+    banersSection.style.opacity = 1;
+},1000);
+setTimeout(() => {        
+    movieList.style.opacity = 1;
+},1200);

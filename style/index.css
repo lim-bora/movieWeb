@@ -1,6 +1,6 @@
 .wrap-container{
     display: flex;
-    height: 100vh;
+    /* height: 100vh; */
     width: 100%;
 }
 .wrap-container .nav{
@@ -8,15 +8,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid #979797;
-    background-color: #fff; 
+    border-right: 1px solid #656565;
     transition: all 0.3s;
     transform-origin: center left;
+    /* height: 100vh; */
+    z-index: 1;
 }
 .wrap-container .nav.focused{
     width: 10%;
 }
-.wrap-container .movie-container.focused{
+.wrap-container .movie-container.focused,
+.wrap-container .search-container.focused{
     width: 90%;
 }
 .wrap-container .movie-container{
@@ -29,6 +31,9 @@
     align-items: center;
     justify-content: center;
     gap: 50px;
+    position: fixed;
+    top: 50%;
+    transform: translateX(-50%);
 }
 .wrap-container .nav ul li{
     cursor: pointer;
@@ -37,48 +42,97 @@
     justify-content: flex-start;
     gap: 5px;
 }
-ion-icon{
+.nav ion-icon{
     width: 25px;
     height: 25px;
-    filter: invert(0.5);;
+    filter: invert(0);;
 }
-ion-icon.active{
-    filter: invert(1);
+.nav ion-icon.active{
+    filter: invert(0);
 }
 .wrap-container .nav ul li span.nav-text{
-    color: #000;
+    color: #fff;
     display: none;
 }
 .wrap-container .nav:hover ul li span.nav-text{
     display: block;
 }
 
-/* 인기순 : 슬라이드 */
+.movie-banner{
+    width: 95%;
+    height: 800px;
+    margin: 0 auto;
+    padding: 50px 50px;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+.movie-banner > ul{
+    width: 100%;
+    height: inherit;
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+}
+.movie-banner > ul li{
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+.movie-banner > ul li.active{
+    opacity: 1;
+}
+
+.movie-banner > ul img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 슬라이드 */
 .movie-list{
     overflow: hidden;
-    padding: 80px 20px;
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    /* gap: 20px; */
 }
+.movie-list .slide{
+    overflow-x: scroll;
+    padding: 20px 0;
+}
+.movie-list .slide::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+}
+
+
 .movie-list > h2{
     margin: 20px 0 20px 3px;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 600;
     letter-spacing: 1.2px;
     display: flex;
     align-items: baseline;
     gap: 10px;
+    padding-left: 5px;
 }
-.movie-list > h2 > span{
+.movie-list h2 span{
     display: flex;
     align-items: center;
     font-size: 14px;
     cursor: pointer;
 }
-.movie-list > h2 > span ion-icon{
+.movie-list h2 span ion-icon{
     width: 16px;
     height: 16px;
     display: none;
 }
-.movie-list > h2 > span:hover ion-icon{
+.movie-list h2 span:hover ion-icon{
     display: block;
     animation: allShow 0.2s forwards;
 }
@@ -91,20 +145,20 @@ ion-icon.active{
         transform: translateX(2px);
     }
 }
-.popular-list{
+.list{
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 300%;
+    width: 200%;
     gap: 20px;
 }
-.popular-list li{
+.list li{
     max-width: 230px;
     height: auto;
     width: 100%;
 }
 
-.moviesItem img{
+.item img{
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -112,7 +166,7 @@ ion-icon.active{
 }
 
 
-.moviesItem.active{
+.item:hover{
     animation: target 0.2s forwards;
     cursor: pointer;
 }
@@ -126,21 +180,19 @@ ion-icon.active{
     }
 }
 
-.popular-list li h2{
-    display: none;
+
+.list li h2{
+    opacity: 0;
     transition: all 0.3s;
     cursor: pointer;
+    line-height: 1.2;
+    font-size: 17px;
+    margin-left: 2px;
 }
-/* .popular-list li:hover h2{
-    content: '';
-    width: 100%;
-    height: 200px;
-    background-color: #000;
-    display: block;
-} */
-.popular-list li:hover h2{
-    animation: movieTitle 0.2s forwards;
-    display: block;
+
+.list li:hover h2{
+    animation: movieTitle 0.4s forwards;
+    opacity: 1;
     margin: 5px 0 5px 3px;
     /* background-color: #000; */
     position: relative;
@@ -148,7 +200,7 @@ ion-icon.active{
 
 @keyframes movieTitle{
     0%{
-        transform: translateY(-20px);
+        transform: translateY(-10px);
     }
     100%{
         transform: translateY(-50px);
@@ -170,38 +222,177 @@ ion-icon.active{
     }
     .movie-modal .modal_view {
     /*팝업*/
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 60%;
-        height: 90vh;
-        padding: 20px;
+        height: 85vh;
+        padding: 20px 40px 60px;
         background: rgb(24, 24, 24);
         border-radius: 20px;
         /* margin-top: 80px; */
         overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+    }
+    .movie-modal .modal_view::-webkit-scrollbar {
+        display: none;  /* Safari and Chrome */
     }
     .movie-modal .modal_view .close_btn {
         display: block;
-        padding: 10px 20px;
-        /* background-color: rgb(116, 0, 0); */
+        padding: 10px 10px;
+        background-color: transparent;
         border: none;
         border-radius: 5px;
         color: #fff;
         cursor: pointer;
         transition: box-shadow 0.2s;
+        float: right;
     }
-    .modal-popular-list{
+    .movie-modal .modal_view .close_btn ion-icon{
+        width: 30px;
+        height: 30px;
+        filter: invert(0);
+    }
+    .movie-modal .modal_view h3{
+        text-align: center;
+        font-size: 40px;
+        padding: 50px 0 100px;
+        letter-spacing: 2px;
+    }
+    .modal-list{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(4, 1fr);
-        gap: 10px;
+        column-gap: 15px;
+        row-gap: 40px;
     }
-    .modal-popular-list img{
+    .modal-list img{
         width: 100%;
         object-fit: cover;
+        border-radius: 5px;
     }
-    .modal-popular-list > li{
-        /* width: 25%; */
+    .modal-list > li h2{
+        margin: 10px 0;
+        font-size: 17px;
+        line-height: 1.2;
+        font-weight: 500;
     }
+    .modal-list > li span{
+        margin-bottom: 10px;
+        display: block;
+        font-size: 12px;
+        color: #ddd;
+    }
+    .modal-list li .btn ion-icon{
+        margin-bottom: 10px;
+    }
+    .modal-list li .overview-text{
+        font-size: 13px;
+        font-weight: 200;
+    }
+
+    .modal-list li:hover{
+        animation: target 0.2s forwards;
+        cursor: pointer;
+    }
+
+
+/* 검색창 */
+.search-container{
+    background-color: #000;
+    position: absolute;
+    right: 0%;
+    width: 95%;
+    min-height: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    display: none;
+    animation: searchShow 0.3s forwards;
+}
+@keyframes searchShow{
+    0%{
+        transform: translateX(-10%);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+}
+.search-container.visible{
+    display: block;
+}
+.search-box{
+    height: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 0;
+    /* border-bottom: 1px solid; */
+}
+.search-box.active{
+    height: 20%;
+    transition: all 1s;
+}
+
+.searchInput{
+    width: 60%;
+    height: 50px;
+    padding: 20px;
+    background-color: #000!important;
+    border: 0;
+    border-bottom: 2px solid #fff;
+    font-size: 34px;
+    outline: none;
+    color: #fff!important;
+    text-align: center;
+    letter-spacing: 2px;
+    animation: searchWidth 0.3s forwards;
+}
+@keyframes searchWidth{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 60%;
+    }
+}
+.searchInput.active{
+    width: 500px;
+    transition: all 1s;
+}
+.search-container .search{
+    padding: 100px 200px;
+    /* height: 100vh; */
+}
+.search-list{
+    /* height: calc(100% - 20%); */
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-template-rows: repeat(4, 1fr); */
+    column-gap: 50px;
+    row-gap: 100px;
+}
+.search-list li{
+    display: none;
+}
+.search-list li.visible{
+    display: block;
+}
+.search-list img{
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    height: 100%;
+}
+.search-list li h2 {
+    cursor: pointer;
+    line-height: 1.2;
+    font-size: 17px;
+    margin-left: 2px;
+    padding: 10px 0;
+}
+
