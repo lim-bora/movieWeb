@@ -21,6 +21,7 @@ setInterval(fadeBanner, 3000); // 2초마다 배너 전환
 
 //// 네비 마우스올렸을때 효과
 const nav = document.querySelector('.nav');
+const navBtns = document.querySelectorAll('.nav li');
 const movieContainer = document.querySelector('.movie-container');
 
 nav.addEventListener("mouseover", () => {
@@ -82,3 +83,15 @@ setTimeout(() => {
 setTimeout(() => {        
     movieList.style.opacity = 1;
 },1200);
+
+
+
+for (let i = 0; i < navBtns.length; i++) {
+    navBtns[i].addEventListener('click', () => {
+        navBtns.forEach(btn => {
+            btn.classList.remove('active');
+        });
+        navBtns[i].classList.toggle('active');
+        
+    });
+}

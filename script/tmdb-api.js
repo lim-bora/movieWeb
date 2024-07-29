@@ -53,6 +53,10 @@ const options = {
                 </span>
             `;
             modalList.appendChild(modalItemCreate); //인기순ul안에 li 아이템들 추가
+            ////클릭시 alert창 띄우기 - ${mv.id} 버전
+            modalItemCreate.addEventListener("click", () => { 
+                alert(`영화 id:${mv.id}`);
+            }); 
         });
         
         //** search : item 생성 **//
@@ -129,6 +133,11 @@ const options2 = {
                 </span>
             `;
             modalList.appendChild(modalItemCreate);
+
+            ////클릭시 alert창 띄우기 - ${mv.id} 버전
+            modalItemCreate.addEventListener("click", () => { 
+                alert(`영화 id:${mv.id}`);
+            }); 
         });
 
         //** search : item 생성 **//

@@ -33,7 +33,7 @@
     gap: 50px;
     position: fixed;
     top: 50%;
-    transform: translateX(-50%);
+    transform: translateY(-50%);
 }
 .wrap-container .nav ul li{
     cursor: pointer;
@@ -45,9 +45,9 @@
 .nav ion-icon{
     width: 25px;
     height: 25px;
-    filter: invert(0);;
+    filter: invert(0.5);;
 }
-.nav ion-icon.active{
+.nav li.active ion-icon{
     filter: invert(0);
 }
 .wrap-container .nav ul li span.nav-text{
@@ -81,6 +81,7 @@
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
+    transition: opacity 1s ease-in-out;
 }
 .movie-banner > ul li.active{
     opacity: 1;
@@ -156,6 +157,7 @@
     max-width: 230px;
     height: auto;
     width: 100%;
+    position: relative;
 }
 
 .item img{
@@ -185,25 +187,34 @@
     opacity: 0;
     transition: all 0.3s;
     cursor: pointer;
-    line-height: 1.2;
+    line-height: 1.3;
     font-size: 17px;
-    margin-left: 2px;
+    position: absolute;
+    bottom: 0;
+    padding: 0 5px;
 }
 
 .list li:hover h2{
     animation: movieTitle 0.4s forwards;
     opacity: 1;
-    margin: 5px 0 5px 3px;
-    /* background-color: #000; */
-    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(180deg, transparent, #000000);
+    /* padding: 15px 3px; */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-top: 15%;
+    height: 15%;
+    /* display: block; */
 }
 
 @keyframes movieTitle{
     0%{
-        transform: translateY(-10px);
+        transform: translateY(0px);
     }
     100%{
-        transform: translateY(-50px);
+        transform: translateY(0px); 
+        padding-bottom: 10px;
     }
 }
 
@@ -395,4 +406,19 @@
     margin-left: 2px;
     padding: 10px 0;
 }
+.popularSlide{
+    margin-bottom: 70px;
+}
 
+
+
+
+
+@media (max-width: 1500px) {
+    .movie-banner{
+        height: 500px;
+    }
+    .list{
+        width: 300%;
+    }
+  }
